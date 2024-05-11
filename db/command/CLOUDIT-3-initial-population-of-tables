@@ -1,0 +1,6 @@
+insert into item_access(item_id, workspace_id, workspace_user_id, access_type, expires_at, created_by, created_date, last_updated_by, last_updated_date) 
+values(1, null, null, 'PUBLIC', null, 'achevrier@cloudit.com', current_timestamp, 'achevrier@cloudit.com', current_timestamp),
+(2, null, null, 'PUBLIC', current_date + 10, 'achevrier@cloudit.com', current_timestamp, 'achevrier@cloudit.com', current_timestamp),
+(1, 2, null, 'WORKSPACE', current_date + 2, 'achevrier@cloudit.com', current_timestamp, 'achevrier@cloudit.com', current_timestamp),
+(3, 1, null, 'WORKSPACE', current_date - 10, 'achevrier@cloudit.com', current_timestamp, 'achevrier@cloudit.com', current_timestamp),
+(4, null, 1, 'USER', null, 'achevrier@cloudit.com', current_timestamp, 'achevrier@cloudit.com', current_timestamp);

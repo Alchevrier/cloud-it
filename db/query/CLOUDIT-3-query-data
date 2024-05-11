@@ -1,0 +1,29 @@
+-- Query for non-expired PUBLIC items 
+select * from item i where item_id in (
+  select ia.item_id from item_access ia 
+  where ia.access_type = 'PUBLIC' 
+  and (expires_at is null or expires_at >= current_date)
+);
+
+-- Query for users that have access to the first item via item_access
+select * from workspace_user u where u.workspace_user_id in (
+  select wa.workspace_user_id from workspace_access wa where wa.workspace_id in (
+    select ia.workspace_id from item_access ia 
+    where ia.access_type = 'WORKSPACE' 
+    and ia.item_id = 1 
+    and (expires_at is null or expires_at >= current_date)
+  )
+);
+
+-- Query all items accessible for a given user and a given workspace
+select * from item i where item_id in (
+  select ia.item_id from item_access ia 
+  where ia.access_type = 'USER' 
+  and ia.workspace_user_id = 1 
+  and (expires_at is null or expires_at >= current_date)
+) or workspace_id in (
+  select wa.workspace_id from workspace_access wa 
+  where wa.workspace_user_id = 1 
+  and wa.workspace_id = 1 
+  and wa.role = 'ROOT'
+);
