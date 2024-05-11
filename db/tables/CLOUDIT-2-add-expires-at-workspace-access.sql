@@ -1,0 +1,1 @@
+alter table workspace_access add expires_at date;
